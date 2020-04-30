@@ -5,7 +5,7 @@ ExeInjector is a console program that rewrites libraries (dll) and invokes exter
  - Support for Mono only.
 
 ## Releases Note
-See [here.](https://github.com/aiczk/ExeInjec/releases)
+See [here.](https://github.com/aiczk/ExeInjector/releases)
 
 ## Todos
  - Performance tuning.
