@@ -10,7 +10,7 @@ namespace ExeInjector
         [STAThread]
         public static void Main(string[] args)
         {
-            Console.Title = "ExeInjector v0.1";
+            Console.Title = "ExeInjector v0.2";
             Console.CursorVisible = false;
             Console.BackgroundColor = ConsoleColor.Black;
             
