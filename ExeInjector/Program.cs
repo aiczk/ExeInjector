@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using ExeInjector.Analyzer;
 using ExeInjector.Helper;
@@ -41,12 +40,13 @@ namespace ExeInjector
                         targetMethods[i] = new MenuItem(methods[i].FullName, "Select the method to inject the code into.", () => Console.WriteLine("Please select an executable file."));
 
                     var methodsMenu = new Menu(targetMethods);
-                    methodsMenu.ShowMenu();
+                    methodsMenu.ShowMenu(true);
 
                     var exePath = DialogHelper.SelectFileDialog("Exe(.exe)|*.exe");
                     var writer = new MethodWriter(exePath);
                     writer.Inject(methods[methodsMenu.Index]);
 
+                    Console.Clear();
                     Console.WriteLine("Target assembly overwrite complete.");
                     analyzer.End();
                     break;

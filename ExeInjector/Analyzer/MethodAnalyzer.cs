@@ -32,8 +32,8 @@ namespace ExeInjector.Analyzer
                     if(method.Parameters.Count != 0)
                         continue;
                     
-                    if (!Regex.IsMatch(method.Name,"Awake|Start|OnEnable"))
-                        continue;
+                    //if (!Regex.IsMatch(method.Name,"Awake|Start|OnEnable"))
+                    //    continue;
                     
                     methods.Add(method);
                 }

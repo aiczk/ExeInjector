@@ -4,77 +4,28 @@ namespace ExeInjector.Helper
 {
     internal class Menu
     {
-        internal int Index { get; private set; }
-        
-        private static readonly int MaxSize = 7;
-        private int ItemLength { get; }
-        private MenuItem[] MenuItems { get; }
+        internal int Index => menuController.CurrentIndex;
+        private MenuController menuController;
 
         public Menu(params MenuItem[] menuItem)
         {
-            Index = 0;
-            MenuItems = menuItem;
-            ItemLength = menuItem.Length;
+            menuController = new MenuController(menuItem, 7);
         }
 
-        internal void ShowMenu()
+        internal void ShowMenu(bool isScroll = false)
         {
             Console.Clear();
 
-            var enter = false;
-            while (!enter)
+            do
             {
+                if (!menuController.Receive(isScroll)) 
+                    continue;
+                
                 Console.Clear();
-                RefreshMenu();
-                
-                var consoleKey = Console.ReadKey();
-                switch (consoleKey.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        
-                        if (Index <= 0)
-                            Index = ItemLength - 1;
-                        else
-                            Index--;
-                        
-                        break;
-                
-                    case ConsoleKey.DownArrow:
+                menuController.MenuItems[Index].Action();
+                break;
 
-                        if (Index == ItemLength - 1)
-                            Index = 0;
-                        else
-                            Index++;
-                        
-                        break;
-                
-                    case ConsoleKey.Enter:
-                        Console.Clear();
-                        MenuItems[Index].Action();
-                        enter = true;
-                        break;
-                }
-            }
-        }
-
-        private void RefreshMenu()
-        {
-            for (var i = 0; i < ItemLength; i++)
-            {
-                var menuItem = MenuItems[i];
-                
-                if (Index == i)
-                {
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                }
-
-                Console.WriteLine(menuItem.Label.PadRight(MaxSize, ' '));
-                Console.ResetColor();
-            }
-            
-            Console.WriteLine("______________________________\n");
-            Console.WriteLine($"{MenuItems[Index].Description}");
+            } while (true);
         }
     }
 }
