@@ -22,6 +22,7 @@ namespace ExeInjector.Analyzer
             var processMethods = AssemblyHelper.GetSystemModule().GetType("System.Diagnostics", "Process").Methods;
             var processStart = method.Module.ImportReference(processMethods.First(x => x.Name == "Start" && x.Parameters.Count == 1));
 
+            //Insert IL in reverse order.
             processor.InsertAfter(initFirstIl, Instruction.Create(OpCodes.Pop));
             processor.InsertAfter(initFirstIl, Instruction.Create(OpCodes.Call, processStart));
             processor.InsertAfter(initFirstIl, Instruction.Create(OpCodes.Ldstr, exePath));

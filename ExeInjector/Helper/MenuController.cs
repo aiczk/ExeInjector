@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace ExeInjector.Helper
 {
@@ -9,14 +10,14 @@ namespace ExeInjector.Helper
         private int elementCount;
         private readonly int maxDisplaySize;
 
-        public MenuController(MenuItem[] menuItems, int maxDisplaySize)
+        internal MenuController(MenuItem[] menuItems, int maxDisplaySize)
         {
             MenuItems = menuItems;
             elementCount = menuItems.Length;
             this.maxDisplaySize = maxDisplaySize;
         }
 
-        internal bool Receive(bool isScroll)
+        internal bool Update(bool isScroll)
         {
             Console.Clear();
             RefreshMenu(isScroll);
@@ -55,10 +56,10 @@ namespace ExeInjector.Helper
             if(isScroll)
                 ScrollMenu();
             else
-                DefaultMenu();
+                NormalMenu();
         }
 
-        private void DefaultMenu()
+        private void NormalMenu()
         {
             for (var i = 0; i < elementCount; i++)
             {
@@ -80,7 +81,7 @@ namespace ExeInjector.Helper
 
         private void ScrollMenu()
         {
-            for (var i = Math.Min(elementCount - maxDisplaySize, CurrentIndex); i < CurrentIndex + maxDisplaySize; i++)
+            for (var i = Math.Min(CurrentIndex, Math.Abs(elementCount - maxDisplaySize)); i < Math.Min(elementCount, CurrentIndex + maxDisplaySize); i++)
             {
                 if(i > CurrentIndex + maxDisplaySize)
                     break;

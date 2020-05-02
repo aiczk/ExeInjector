@@ -42,6 +42,6 @@ namespace ExeInjector.Analyzer
             return methods;
         }
 
-        internal void End() => targetModule.Write(path);
+        internal void Finish() => targetModule.Write(path);
     }
 }

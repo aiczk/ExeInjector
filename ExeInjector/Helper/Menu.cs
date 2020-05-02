@@ -18,7 +18,7 @@ namespace ExeInjector.Helper
 
             do
             {
-                if (!menuController.Receive(isScroll)) 
+                if (!menuController.Update(isScroll)) 
                     continue;
                 
                 Console.Clear();

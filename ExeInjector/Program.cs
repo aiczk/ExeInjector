@@ -13,6 +13,7 @@ namespace ExeInjector
             Console.Title = "ExeInjector v0.2";
             Console.CursorVisible = false;
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.SetCursorPosition(0, 0);
             
             var menu = new Menu
             (
@@ -25,8 +26,7 @@ namespace ExeInjector
             do
             {
                 var libPath = DialogHelper.SelectFileDialog("Library(.dll)|*.dll");
-            
-                //Assembly-CSharp.dll nameCheck
+                
                 if(Path.GetFileName(libPath) == "Assembly-CSharp.dll")
                 {
                     Console.Clear();
@@ -47,8 +47,8 @@ namespace ExeInjector
                     writer.Inject(methods[methodsMenu.Index]);
 
                     Console.Clear();
-                    Console.WriteLine("Target assembly overwrite complete.");
-                    analyzer.End();
+                    Console.WriteLine("Target assembly overwrite complete!");
+                    analyzer.Finish();
                     break;
                 }
                 
